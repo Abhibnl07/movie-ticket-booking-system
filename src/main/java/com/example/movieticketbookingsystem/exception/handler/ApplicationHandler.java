@@ -15,8 +15,8 @@ public class ApplicationHandler {
 
        ErrorStructure<String> errorStructure=ErrorStructure.<String>builder()
                .status(HttpStatus.NOT_FOUND.value())
-               .type(ex.getMessage())
-               .message("user exist").build();
+               .type("user exist")
+               .message(ex.getMessage()).build();
 
        return new ResponseEntity<>(errorStructure,HttpStatus.NOT_FOUND);
 
