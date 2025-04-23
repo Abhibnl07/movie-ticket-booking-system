@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -27,6 +28,9 @@ public class UserDetails {
     private LocalDate dateOfBirth;
     private Long createdAt;
     private Long updatedAt;
+
+    private boolean isDeleted=false;
+    private Instant deletedAt;
 
 
 
