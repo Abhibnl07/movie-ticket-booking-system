@@ -2,10 +2,13 @@ package com.example.movieticketbookingsystem.serviceimpl;
 
 import com.example.movieticketbookingsystem.entity.TheaterOwner;
 import com.example.movieticketbookingsystem.entity.User;
+import com.example.movieticketbookingsystem.entity.UserDetails;
 import com.example.movieticketbookingsystem.enums.UserRole;
+import com.example.movieticketbookingsystem.exception.UserNotFoundByEmail;
 import com.example.movieticketbookingsystem.exception.UserNotRegistered;
 import com.example.movieticketbookingsystem.record.UserRegistrationRequestDTO;
 import com.example.movieticketbookingsystem.record.UserRegistrationResponseDTO;
+import com.example.movieticketbookingsystem.record.UserUpdateRequestDTO;
 import com.example.movieticketbookingsystem.repository.TheaterOwnerRepository;
 import com.example.movieticketbookingsystem.repository.UserDetailsRepository;
 import com.example.movieticketbookingsystem.repository.UserRepository;
@@ -72,6 +75,23 @@ public class UserServiceImpl implements UserService {
             }
 
         }
+    }
+
+    @Override
+    public String userDetailsUpdate(String email, UserUpdateRequestDTO userupdaterequestDTO) {
+
+        UserDetails exsituser = userdetailsrepository.findByEmail(email);
+        if(exsituser==null){
+            throw new UserNotFoundByEmail("user details not found for updation");
+        }
+        else {
+            exsituser.setUsername(userupdaterequestDTO.username());
+            exsituser.setPhoneNumber(userupdaterequestDTO.phoneNumber());
+        }
+
+        userdetailsrepository.save(exsituser);
+
+        return "user details updated successfully";
     }
 
 
