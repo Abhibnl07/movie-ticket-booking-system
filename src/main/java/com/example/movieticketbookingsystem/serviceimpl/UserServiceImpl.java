@@ -2,9 +2,10 @@ package com.example.movieticketbookingsystem.serviceimpl;
 
 import com.example.movieticketbookingsystem.entity.TheaterOwner;
 import com.example.movieticketbookingsystem.entity.User;
-import com.example.movieticketbookingsystem.entity.UserDetails;
 import com.example.movieticketbookingsystem.enums.UserRole;
 import com.example.movieticketbookingsystem.exception.UserNotRegistered;
+import com.example.movieticketbookingsystem.record.UserRegistrationRequestDTO;
+import com.example.movieticketbookingsystem.record.UserRegistrationResponseDTO;
 import com.example.movieticketbookingsystem.repository.TheaterOwnerRepository;
 import com.example.movieticketbookingsystem.repository.UserDetailsRepository;
 import com.example.movieticketbookingsystem.repository.UserRepository;
@@ -22,40 +23,56 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDetails register(UserDetails userdetails) {
+    public UserRegistrationResponseDTO register(UserRegistrationRequestDTO userregistrationrequestDTO) {
 
-        if (userdetailsrepository.existsByEmail(userdetails.getEmail())) {
+        if (userdetailsrepository.existsByEmail(userregistrationrequestDTO.email())) {
             throw new UserNotRegistered("Email already exists!");
         } else {
-            if (userdetails.getRole() == UserRole.USER) {
+            if (userregistrationrequestDTO.role() == UserRole.USER) {
                 User user = new User();
 
-                user.setUsername(userdetails.getUsername());
-                user.setPassword(userdetails.getPassword());
-                user.setEmail(userdetails.getEmail());
-                user.setPhoneNumber(userdetails.getPhoneNumber());
-                user.setRole(userdetails.getRole());
-                user.setDateOfBirth(userdetails.getDateOfBirth());
-                user.setCreatedAt(userdetails.getCreatedAt());
-                user.setUpdatedAt(userdetails.getUpdatedAt());
+                user.setUsername(userregistrationrequestDTO.username());
+                user.setPassword(userregistrationrequestDTO.password());
+                user.setEmail(userregistrationrequestDTO.email());
+                user.setPhoneNumber(userregistrationrequestDTO.phoneNumber());
+                user.setRole(userregistrationrequestDTO.role());
+                user.setDateOfBirth(userregistrationrequestDTO.dateOfBirth());
+//                user.setCreatedAt(userregistrationrequestDTO.getCreatedAt());
+//                user.setUpdatedAt(userregistrationrequestDTO.getUpdatedAt());
 
-               return userdetailsrepository.save(user);
+                userdetailsrepository.save(user);
+
+                return new UserRegistrationResponseDTO(
+                        user.getUserId(),
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getRole()
+                );
 
             } else  {
                 TheaterOwner theaterowner = new TheaterOwner();
 
-                theaterowner.setUsername(userdetails.getUsername());
-                theaterowner.setPassword(userdetails.getPassword());
-                theaterowner.setEmail(userdetails.getEmail());
-                theaterowner.setPhoneNumber(userdetails.getPhoneNumber());
-                theaterowner.setRole(userdetails.getRole());
-                theaterowner.setDateOfBirth(userdetails.getDateOfBirth());
-                theaterowner.setCreatedAt(userdetails.getCreatedAt());
-                theaterowner.setUpdatedAt(userdetails.getUpdatedAt());
+                theaterowner.setUsername(userregistrationrequestDTO.username());
+                theaterowner.setPassword(userregistrationrequestDTO.password());
+                theaterowner.setEmail(userregistrationrequestDTO.email());
+                theaterowner.setPhoneNumber(userregistrationrequestDTO.phoneNumber());
+                theaterowner.setRole(userregistrationrequestDTO.role());
+                theaterowner.setDateOfBirth(userregistrationrequestDTO.dateOfBirth());
+//                theaterowner.setCreatedAt(userregistrationrequestDTO.getCreatedAt());
+//                theaterowner.setUpdatedAt(userregistrationrequestDTO.getUpdatedAt());
 
-               return userdetailsrepository.save(theaterowner);
+               userdetailsrepository.save(theaterowner);
+
+                return new UserRegistrationResponseDTO(
+                        theaterowner.getUserId(),
+                        theaterowner.getUsername(),
+                        theaterowner.getEmail(),
+                        theaterowner.getRole()
+                );
             }
 
         }
     }
+
+
 }

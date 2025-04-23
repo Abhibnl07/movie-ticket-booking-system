@@ -1,6 +1,8 @@
 package com.example.movieticketbookingsystem.controller;
 
 import com.example.movieticketbookingsystem.entity.UserDetails;
+import com.example.movieticketbookingsystem.record.UserRegistrationRequestDTO;
+import com.example.movieticketbookingsystem.record.UserRegistrationResponseDTO;
 import com.example.movieticketbookingsystem.service.UserService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
 import lombok.AllArgsConstructor;
@@ -19,15 +21,17 @@ public class UserController {
     private final UserService userservice;
 
     @PostMapping
-    public ResponseEntity<ResponseStructure<UserDetails>> register(@RequestBody UserDetails userdetails){
+    public ResponseEntity<ResponseStructure<UserRegistrationResponseDTO>> register(@RequestBody UserRegistrationRequestDTO userregistrationrequestDTO){
 
-        UserDetails user= userservice.register(userdetails);
+        UserRegistrationResponseDTO user= userservice.register(userregistrationrequestDTO);
 
-        ResponseStructure<UserDetails> rs=new ResponseStructure<UserDetails>();
+        ResponseStructure<UserRegistrationResponseDTO> rs=new ResponseStructure<UserRegistrationResponseDTO>();
         rs.setStatusCode(HttpStatus.CREATED.value());
         rs.setMessage("registered  successfully");
         rs.setData(user);
 
-        return new ResponseEntity<ResponseStructure<UserDetails>>(rs,HttpStatus.CREATED);
+        return new ResponseEntity<ResponseStructure<UserRegistrationResponseDTO>>(rs,HttpStatus.CREATED);
     }
+
+
 }
