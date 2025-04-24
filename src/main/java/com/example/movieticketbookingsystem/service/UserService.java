@@ -10,5 +10,7 @@ public interface UserService {
     UserRegistrationResponseDTO register(UserRegistrationRequestDTO userregistrationrequestDTO);
 
     String userDetailsUpdate(String email,UserUpdateRequestDTO userupdaterequestDTO);
+
+    void userSoftDelete(String email);
 }
 
