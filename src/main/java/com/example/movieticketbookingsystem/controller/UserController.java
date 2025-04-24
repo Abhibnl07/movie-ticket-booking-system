@@ -44,4 +44,16 @@ public class UserController {
 
         return new ResponseEntity<ResponseStructure<String>>(rs,HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseStructure<String>> userSoftDelete(@RequestParam String email){
+
+         userservice.userSoftDelete(email);
+
+        ResponseStructure<String> rs=new ResponseStructure<String>();
+        rs.setStatusCode(HttpStatus.OK.value());
+        rs.setMessage("user details deleted  successfully");
+
+        return new ResponseEntity<ResponseStructure<String>>(rs,HttpStatus.OK);
+    }
 }

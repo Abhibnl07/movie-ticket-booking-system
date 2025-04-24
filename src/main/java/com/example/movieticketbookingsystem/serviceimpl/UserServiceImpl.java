@@ -16,6 +16,8 @@ import com.example.movieticketbookingsystem.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -92,6 +94,20 @@ public class UserServiceImpl implements UserService {
         userdetailsrepository.save(exsituser);
 
         return "user details updated successfully";
+    }
+
+    @Override
+    public void userSoftDelete(String email) {
+        UserDetails exsituser = userdetailsrepository.findByEmail(email);
+        if(exsituser==null){
+            throw new UserNotFoundByEmail("user details not found for deletion");
+        }else if (!exsituser.isDeleted()) {
+            exsituser.setDeleted(true);
+            exsituser.setDeletedAt(Instant.now());
+            userdetailsrepository.save(exsituser);
+        }
+
+
     }
 
 
