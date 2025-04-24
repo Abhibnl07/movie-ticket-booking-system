@@ -6,6 +6,7 @@ import com.example.movieticketbookingsystem.record.UserRegistrationResponseDTO;
 import com.example.movieticketbookingsystem.record.UserUpdateRequestDTO;
 import com.example.movieticketbookingsystem.service.UserService;
 import com.example.movieticketbookingsystem.utility.ResponseStructure;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ public class UserController {
 
     private final UserService userservice;
 
-    @PostMapping("/users")
-    public ResponseEntity<ResponseStructure<UserRegistrationResponseDTO>> register(@RequestBody UserRegistrationRequestDTO userregistrationrequestDTO){
+    @PostMapping("/register")
+    public ResponseEntity<ResponseStructure<UserRegistrationResponseDTO>> register(@Valid @RequestBody UserRegistrationRequestDTO userregistrationrequestDTO){
 
         UserRegistrationResponseDTO user= userservice.register(userregistrationrequestDTO);
 
