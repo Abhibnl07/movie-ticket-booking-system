@@ -9,9 +9,7 @@ import com.example.movieticketbookingsystem.exception.UserNotRegistered;
 import com.example.movieticketbookingsystem.record.UserRegistrationRequestDTO;
 import com.example.movieticketbookingsystem.record.UserRegistrationResponseDTO;
 import com.example.movieticketbookingsystem.record.UserUpdateRequestDTO;
-import com.example.movieticketbookingsystem.repository.TheaterOwnerRepository;
 import com.example.movieticketbookingsystem.repository.UserDetailsRepository;
-import com.example.movieticketbookingsystem.repository.UserRepository;
 import com.example.movieticketbookingsystem.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,7 @@ import java.time.Instant;
 public class UserServiceImpl implements UserService {
 
     private final UserDetailsRepository userdetailsrepository;
-    private final UserRepository userrepository;
-    private final TheaterOwnerRepository theaterownerrepository;
+
 
 
     @Override
