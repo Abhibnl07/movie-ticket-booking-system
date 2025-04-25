@@ -6,4 +6,5 @@ import jakarta.validation.Valid;
 
 public interface TheaterService {
     TheaterResponseDTO addTheater(String email, TheaterRequestDTO theaterRequestDTO);
+    TheaterResponseDTO findTheaterById(String theaterId);
 }

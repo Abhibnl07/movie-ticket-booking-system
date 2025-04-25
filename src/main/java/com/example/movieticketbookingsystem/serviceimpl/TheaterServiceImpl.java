@@ -70,9 +70,26 @@ public class TheaterServiceImpl implements TheaterService {
                     theater.getName(),
                     theater.getAddress(),
                     theater.getCity(),
-                    theater.getLandmark(),
-                    theater.getCreatedBy()
+                    theater.getLandmark()
+
             );        }
 
     }
-}
+
+    @Override
+    public TheaterResponseDTO findTheaterById(String theaterId) {
+
+        Theater theater=theaterrepository.findById(theaterId)
+                .orElseThrow(() -> new RuntimeException("Theater not found with id: " + theaterId));
+
+            return new TheaterResponseDTO(
+                    theater.getName(),
+                    theater.getAddress(),
+                    theater.getCity(),
+                    theater.getLandmark()
+
+            );        }
+
+
+    }
+
