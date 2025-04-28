@@ -44,4 +44,18 @@ public class TheaterController {
 
         return new ResponseEntity<ResponseStructure<TheaterResponseDTO>>(rs,HttpStatus.FOUND);
     }
+
+
+    @PutMapping("/updatebyid")
+    public ResponseEntity<ResponseStructure<TheaterResponseDTO>> updateTheaterById(String theaterId,TheaterRequestDTO theaterRequestDTO){
+
+        TheaterResponseDTO theater= theaterService.updateTheaterById(theaterId,theaterRequestDTO);
+
+        ResponseStructure<TheaterResponseDTO> rs=new ResponseStructure<TheaterResponseDTO>();
+        rs.setStatusCode(HttpStatus.FOUND.value());
+        rs.setMessage("registered  successfully");
+        rs.setData(theater);
+
+        return new ResponseEntity<ResponseStructure<TheaterResponseDTO>>(rs,HttpStatus.FOUND);
+    }
 }
