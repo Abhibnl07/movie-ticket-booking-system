@@ -12,6 +12,7 @@ import com.example.movieticketbookingsystem.record.UserUpdateRequestDTO;
 import com.example.movieticketbookingsystem.repository.UserDetailsRepository;
 import com.example.movieticketbookingsystem.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,6 +22,7 @@ import java.time.Instant;
 public class UserServiceImpl implements UserService {
 
     private final UserDetailsRepository userdetailsrepository;
+    private final PasswordEncoder passwordEncoder;
 
 
 
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
                 User user = new User();
 
                 user.setUsername(userregistrationrequestDTO.username());
-                user.setPassword(userregistrationrequestDTO.password());
+                user.setPassword(passwordEncoder.encode(userregistrationrequestDTO.password()));
                 user.setEmail(userregistrationrequestDTO.email());
                 user.setPhoneNumber(userregistrationrequestDTO.phoneNumber());
                 user.setRole(userregistrationrequestDTO.role());
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
                 TheaterOwner theaterowner = new TheaterOwner();
 
                 theaterowner.setUsername(userregistrationrequestDTO.username());
-                theaterowner.setPassword(userregistrationrequestDTO.password());
+                theaterowner.setPassword(passwordEncoder.encode(userregistrationrequestDTO.password()));
                 theaterowner.setEmail(userregistrationrequestDTO.email());
                 theaterowner.setPhoneNumber(userregistrationrequestDTO.phoneNumber());
                 theaterowner.setRole(userregistrationrequestDTO.role());

@@ -6,6 +6,8 @@ import com.example.movieticketbookingsystem.entity.UserDetails;
 import com.example.movieticketbookingsystem.exception.UserNotFoundByEmail;
 import com.example.movieticketbookingsystem.record.TheaterRequestDTO;
 import com.example.movieticketbookingsystem.record.TheaterResponseDTO;
+import com.example.movieticketbookingsystem.record.TheaterUpdateRequestDTO;
+import com.example.movieticketbookingsystem.record.TheaterUpdateResponseDTO;
 import com.example.movieticketbookingsystem.repository.TheaterOwnerRepository;
 import com.example.movieticketbookingsystem.repository.TheaterRepository;
 import com.example.movieticketbookingsystem.repository.UserDetailsRepository;
@@ -92,24 +94,24 @@ public class TheaterServiceImpl implements TheaterService {
     }
 
     @Override
-    public TheaterResponseDTO updateTheaterById(String theaterId, TheaterRequestDTO theaterRequestDTO) {
+    public TheaterUpdateResponseDTO updateTheaterById(String theaterId, TheaterUpdateRequestDTO theaterUpdateRequestDTO) {
 
 
         Theater theaterEntity = theaterrepository.findById(theaterId)
                 .orElseThrow(() -> new RuntimeException("Theater not found"));
 
             // Update the theater fields from the request DTO
-            theaterEntity.setName(theaterRequestDTO.name());
-            theaterEntity.setAddress(theaterRequestDTO.address());
-            theaterEntity.setCity(theaterRequestDTO.city());
-            theaterEntity.setLandmark(theaterRequestDTO.landmark());
+            theaterEntity.setName(theaterUpdateRequestDTO.name());
+            theaterEntity.setAddress(theaterUpdateRequestDTO.address());
+            theaterEntity.setCity(theaterUpdateRequestDTO.city());
+            theaterEntity.setLandmark(theaterUpdateRequestDTO.landmark());
 
 
 
             // Save the updated theater entity
             theaterrepository.save(theaterEntity);
 
-            return new TheaterResponseDTO(
+            return new TheaterUpdateResponseDTO(
                     theaterEntity.getName(),
                     theaterEntity.getAddress(),
                     theaterEntity.getCity(),
