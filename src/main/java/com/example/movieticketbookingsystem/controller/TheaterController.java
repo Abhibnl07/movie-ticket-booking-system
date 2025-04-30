@@ -45,14 +45,14 @@ public class TheaterController {
     }
 
 
-    @PutMapping("/update/By/Id")
-    public ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>> updateTheaterById(String theaterId, TheaterUpdateRequestDTO theaterUpdateRequestDTO){
+    @PutMapping("/theaters/{id}")
+    public ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>> updateTheaterById(@RequestParam String theaterId,@RequestBody TheaterUpdateRequestDTO theaterUpdateRequestDTO){
 
         TheaterUpdateResponseDTO theater= theaterService.updateTheaterById(theaterId,theaterUpdateRequestDTO);
 
         ResponseStructure<TheaterUpdateResponseDTO> rs=new ResponseStructure<TheaterUpdateResponseDTO>();
         rs.setStatusCode(HttpStatus.FOUND.value());
-        rs.setMessage("registered  successfully");
+        rs.setMessage("updated  successfully");
         rs.setData(theater);
 
         return new ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>>(rs,HttpStatus.FOUND);
