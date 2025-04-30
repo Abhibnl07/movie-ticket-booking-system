@@ -23,7 +23,7 @@ public class UserDetails {
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+   private UserRole role;
 
     private LocalDate dateOfBirth;
     private Long createdAt;
