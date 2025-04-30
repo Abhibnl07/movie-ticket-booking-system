@@ -31,17 +31,17 @@ public class TheaterServiceImpl implements TheaterService {
 
 
     @Override
-    public TheaterResponseDTO addTheater(String email,TheaterRequestDTO theaterRequestDTO) {
+    public TheaterResponseDTO addTheater(String email, TheaterRequestDTO theaterRequestDTO) {
         UserDetails exsituser = userdetailsrepository.findByEmail(email);
-        if(exsituser==null){
+        if (exsituser == null) {
             throw new UserNotFoundByEmail("user details not found email");
-        }else if(!(exsituser instanceof TheaterOwner owner)) {
+        } else if (!(exsituser instanceof TheaterOwner owner)) {
             throw new RuntimeException("User is not a TheaterOwner");
-        }else {
+        } else {
 
             List<Theater> list = new ArrayList<Theater>();
 
-            Theater theater=new Theater();
+            Theater theater = new Theater();
             theater.setName(theaterRequestDTO.name());
             theater.setAddress(theaterRequestDTO.address());
             theater.setCity(theaterRequestDTO.city());
@@ -51,7 +51,7 @@ public class TheaterServiceImpl implements TheaterService {
 
             theater.setTheaterOwner(owner);
 
-            Theater theater1=new Theater();
+            Theater theater1 = new Theater();
             theater1.setName(theaterRequestDTO.name());
             theater1.setAddress(theaterRequestDTO.address());
             theater1.setCity(theaterRequestDTO.city());
@@ -65,31 +65,59 @@ public class TheaterServiceImpl implements TheaterService {
             theaterrepository.saveAll(list);
 
 
-
             return new TheaterResponseDTO(
                     theater.getName(),
                     theater.getAddress(),
                     theater.getCity(),
                     theater.getLandmark()
 
-            );        }
+            );
+        }
 
     }
 
     @Override
     public TheaterResponseDTO findTheaterById(String theaterId) {
 
-        Theater theater=theaterrepository.findById(theaterId)
+        Theater theater = theaterrepository.findById(theaterId)
                 .orElseThrow(() -> new RuntimeException("Theater not found with id: " + theaterId));
 
+        return new TheaterResponseDTO(
+                theater.getName(),
+                theater.getAddress(),
+                theater.getCity(),
+                theater.getLandmark()
+
+        );
+    }
+
+    @Override
+    public TheaterResponseDTO updateTheaterById(String theaterId, TheaterRequestDTO theaterRequestDTO) {
+
+
+        Theater theaterEntity = theaterrepository.findById(theaterId)
+                .orElseThrow(() -> new RuntimeException("Theater not found"));
+
+            // Update the theater fields from the request DTO
+            theaterEntity.setName(theaterRequestDTO.name());
+            theaterEntity.setAddress(theaterRequestDTO.address());
+            theaterEntity.setCity(theaterRequestDTO.city());
+            theaterEntity.setLandmark(theaterRequestDTO.landmark());
+
+
+
+            // Save the updated theater entity
+            theaterrepository.save(theaterEntity);
+
             return new TheaterResponseDTO(
-                    theater.getName(),
-                    theater.getAddress(),
-                    theater.getCity(),
-                    theater.getLandmark()
+                    theaterEntity.getName(),
+                    theaterEntity.getAddress(),
+                    theaterEntity.getCity(),
+                    theaterEntity.getLandmark()
 
-            );        }
-
+            );
+        }
 
     }
+
 
