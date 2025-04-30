@@ -44,17 +44,20 @@ public class TheaterController {
         return new ResponseEntity<ResponseStructure<TheaterResponseDTO>>(rs,HttpStatus.FOUND);
     }
 
+ feature/security
+    @PutMapping("/theaters/{id}")
+    public ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>> updateTheaterById(@RequestParam String theaterId,@RequestBody TheaterUpdateRequestDTO theaterUpdateRequestDTO){
 
-    @PutMapping("/update/By/Id")
-    public ResponseEntity<ResponseStructure<TheaterResponseDTO>> updateTheaterById(String theaterId, TheaterRequestDTO theaterRequestDTO){
 
-        TheaterResponseDTO theater= theaterService.updateTheaterById(theaterId,theaterRequestDTO);
 
-        ResponseStructure<TheaterResponseDTO> rs=new ResponseStructure<TheaterResponseDTO>();
+
+        TheaterUpdateResponseDTO theater= theaterService.updateTheaterById(theaterId,theaterUpdateRequestDTO);
+
+        ResponseStructure<TheaterUpdateResponseDTO> rs=new ResponseStructure<TheaterUpdateResponseDTO>();
         rs.setStatusCode(HttpStatus.FOUND.value());
-        rs.setMessage("registered  successfully");
+        rs.setMessage("updated  successfully");
         rs.setData(theater);
 
-        return new ResponseEntity<ResponseStructure<TheaterResponseDTO>>(rs,HttpStatus.FOUND);
+        return new ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>>(rs,HttpStatus.FOUND);
     }
 }
