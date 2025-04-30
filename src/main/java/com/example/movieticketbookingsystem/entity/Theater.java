@@ -1,45 +1,45 @@
 package com.example.movieticketbookingsystem.entity;
 
-import com.example.movieticketbookingsystem.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Inheritance(strategy = InheritanceType.JOINED)
-public class UserDetails {
+public class Theater {
+
+    @ManyToOne
+    //@JoinColumn(name = "owner_id")
+    private TheaterOwner theaterOwner;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String userId;
-    private String username;
-    private String email;
-    private String password;
-    private String phoneNumber;
-
-    @Enumerated(EnumType.STRING)
-   private UserRole role;
-
-    private LocalDate dateOfBirth;
-
+    private String theaterId;
+    private String name;
+    private String address;
+    private String city;
+    private String landmark;
 
     @CreatedDate
     private Instant createdAt;
-
     @LastModifiedDate
     private Instant updatedAt;
+    @CreatedBy
+    private String createdBy;
 
-    private boolean isDeleted=false;
-    private Instant deletedAt;
+
 
 
 
