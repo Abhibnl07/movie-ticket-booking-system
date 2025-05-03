@@ -1,36 +1,33 @@
 package com.example.movieticketbookingsystem.entity;
 
-import com.example.movieticketbookingsystem.enums.UserRole;
+import com.example.movieticketbookingsystem.enums.ScreenType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-@Inheritance(strategy = InheritanceType.JOINED)
-public class UserDetails {
+public class Screen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String userId;
-    private String username;
-    private String email;
-    private String password;
-    private String phoneNumber;
+    private String screenId;
 
     @Enumerated(EnumType.STRING)
-   private UserRole role;
+    private ScreenType screenType;
 
-    private LocalDate dateOfBirth;
-
+    private Integer capacity;
+    private Integer noOfRows;
 
     @CreatedDate
     private Instant createdAt;
@@ -38,9 +35,14 @@ public class UserDetails {
     @LastModifiedDate
     private Instant updatedAt;
 
-    private boolean isDeleted=false;
-    private Instant deletedAt;
+    @CreatedBy
+    private String createdBy;
 
+    @ManyToOne
+    private Theater theater;
+
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Seat> seats=new ArrayList<>();
 
 
 }
