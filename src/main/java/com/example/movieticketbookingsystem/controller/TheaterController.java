@@ -44,7 +44,7 @@ public class TheaterController {
         return new ResponseEntity<ResponseStructure<TheaterResponseDTO>>(rs,HttpStatus.FOUND);
     }
 
- feature/security
+
     @PutMapping("/theaters/{id}")
     public ResponseEntity<ResponseStructure<TheaterUpdateResponseDTO>> updateTheaterById(@RequestParam String theaterId,@RequestBody TheaterUpdateRequestDTO theaterUpdateRequestDTO){
 
